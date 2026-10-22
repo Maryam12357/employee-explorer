@@ -1,29 +1,41 @@
+
 import { Suspense } from "react";
 import EmployeeProfile from "@/components/EmployeeProfile";
+import RecentPosts from "@/components/RecentPosts";
+import ClientPosts from "@/components/ClientPosts";
+
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-100 p-6">
-      <div className="mx-auto max-w-4xl">
+    <main className="min-h-screen bg-gray-50 p-8">
+      <div className="mx-auto max-w-3xl space-y-6">
         <h1 className="text-3xl font-bold text-gray-900">
           Employee Explorer
         </h1>
 
-        <p className="mt-2 text-gray-600">
+        <p className="text-gray-600">
           Explore employee information and recent posts.
         </p>
 
-        <div className="mt-8">
-          <Suspense
-            fallback={
-              <p className="text-gray-600">
-                Loading employee profile...
+       <Suspense fallback={<p>Loading employee profile...</p>}>
+         <EmployeeProfile />
+         </Suspense>
+
+        <Suspense
+          fallback={
+            <section className="rounded-xl bg-white p-6 shadow-sm">
+              <h2 className="text-xl font-semibold text-gray-900">
+                Recent Posts
+              </h2>
+              <p className="mt-3 text-gray-600">
+                Loading recent posts...
               </p>
-            }
-          >
-            <EmployeeProfile />
-          </Suspense>
-        </div>
+            </section>
+          }
+        >
+          <RecentPosts />
+        </Suspense>
+        <ClientPosts />
       </div>
     </main>
   );
